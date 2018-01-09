@@ -187,6 +187,7 @@ namespace price_collect
                     one_crawl(data[0],data[1],data[2],data[3]);
                 }
             }
+            log.LogWarning(display_box, "已完成!");
         }
 
 
@@ -254,9 +255,6 @@ namespace price_collect
             /// <returns></returns>
             PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
             service.HideCommandPromptWindow = true; // 隐藏dos窗口
-            //service.ConfigFile = "";
-            //var url = "https://item.jd.com/772561.html";
-            //string xpath0 = "//body[contains(@class,'clothing')]/div[@class='w']/div[contains(@class,'clearfix')]/div[@class='itemInfo-wrap']/div[contains(@class,'summary')]//div[contains(@class,'summary-price')]/div[@class='dd']/span[@class='p-price']/span[contains(@class,'price')]";
             var driver1 = new PhantomJSDriver(service);
             driver1.Navigate().GoToUrl(url);
 
