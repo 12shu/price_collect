@@ -48,7 +48,11 @@ xpath是什么？它是用来定位数据的位置的,**不懂没关系! 能找�
 
   链接：https://pan.baidu.com/s/1smIr46L 密码：a65t
 
-`价格采集.py` ：`价格采集.exe`的 源代码，编译方法见[编译py文件并复制到对应位置.bat](https://github.com/qqblack/price_collect/blob/master/%E7%BC%96%E8%AF%91py%E6%96%87%E4%BB%B6%E5%B9%B6%E5%A4%8D%E5%88%B6%E5%88%B0%E5%AF%B9%E5%BA%94%E4%BD%8D%E7%BD%AE.bat) 
+`价格采集.py` ：`价格采集.exe`的 源代码，编译方法见[编译py文件并复制到对应位置.bat](https://github.com/qqblack/price_collect/blob/master/编译py文件并复制到对应位置.bat) 
+
+### 4.疑难解答
+
+见 [疑难解答.md](https://github.com/qqblack/price_collect/blob/master/疑难解答.md) 
 
 ### 将来的版本
 
