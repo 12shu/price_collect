@@ -1,0 +1,9 @@
+E:\program_test\C#\price_collect\price_collect\bin\Release\price_collect.exe
+E:\program_test\C#\price_collect\price_collect\bin\Release\price_collect.pdb
+E:\program_test\C#\price_collect\price_collect\bin\Release\WebDriver.dll
+E:\program_test\C#\price_collect\price_collect\bin\Release\WebDriver.xml
+E:\program_test\C#\price_collect\price_collect\obj\Release\price_collect.Form1.resources
+E:\program_test\C#\price_collect\price_collect\obj\Release\price_collect.Properties.Resources.resources
+E:\program_test\C#\price_collect\price_collect\obj\Release\price_collect.csproj.GenerateResource.Cache
+E:\program_test\C#\price_collect\price_collect\obj\Release\price_collect.exe
+E:\program_test\C#\price_collect\price_collect\obj\Release\price_collect.pdb

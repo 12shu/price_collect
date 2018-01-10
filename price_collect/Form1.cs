@@ -39,8 +39,9 @@ namespace price_collect
                     MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Question) == DialogResult.OK)
             {
-                //save_info(sender,e);
+                e.Cancel = false;
             }
+            else { e.Cancel = true; }
         }
 
         // 保存采集信息
@@ -129,9 +130,20 @@ namespace price_collect
         {
             string[] args = {goods_name,goods_unit,goods_url,price_xpath };
             string status_code = StartProcess(exe_path, args);  // 调用外部的exe
-            if (status_code != "0") // 不是正常获取数据时
+            // 判断错误原因
+            string status_info = "";
+            if ((status_code == "0") || (status_code == "1"))
             {
-                log.LogNormal(display_box, "被调用程序的返回码:" + status_code);
+                if (status_code == "0") { status_info = "成功获取数据"; }
+                else { status_info = "'采集数据.exe'获取数据失败,该数据位于渲染后的网页上"; }
+            }
+            else
+            { status_info = "网址链接打开失败,返回码:"+ status_code; }
+
+            // 不是正常获取数据时
+            if (status_code != "0")
+            {
+                log.LogNormal(display_box, status_info);
                 log.LogNormal(display_box, "开始使用C#的phantomjs爬虫");
                 phantomjs_crawl crawl = new phantomjs_crawl();
                 string price = crawl.xpath_crwal(goods_url, price_xpath); // 网址,xpath
@@ -187,7 +199,7 @@ namespace price_collect
                     one_crawl(data[0],data[1],data[2],data[3]);
                 }
             }
-            log.LogWarning(display_box, "已完成!");
+            log.LogWarning(display_box, "已完成数据的批量获取!");
         }
 
 
