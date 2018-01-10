@@ -1,12 +1,15 @@
 REM 编译
 pyinstaller --console --onefile --clean 价格采集.py
-REM xcopy /Y .\dist\价格采集.exe .\price_collect\bin\x64\Debug
+xcopy /Y .\dist\价格采集.exe .\price_collect\bin\x64\Debug
+xcopy /Y .\dist\价格采集.exe .\price_collect\bin\x64\Release
+xcopy /Y .\dist\价格采集.exe .\price_collect\bin\x86\Debug
+xcopy /Y .\dist\价格采集.exe .\price_collect\bin\x86\Release
+xcopy /Y .\dist\价格采集.exe .\price_collect\bin\Debug
+xcopy /Y .\dist\价格采集.exe .\price_collect\bin\Release
 REM 删除编译的中间文件
-REM del /S /Q build
-REM del /S /Q __pycache__
-REM del /S /Q dist
+del /S /Q build
+del /S /Q __pycache__
 REM 删除空文件夹
-REM RD /S /Q build
-REM RD /S /Q __pycache__
-REM RD /S /Q dist
-REM pause
+RD /S /Q build
+RD /S /Q __pycache__
+pause

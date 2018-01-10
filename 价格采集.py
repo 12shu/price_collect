@@ -50,7 +50,7 @@ def main():
 	            f.close()
 	            print('已写入,今日价格为%s%s' %(price,unit))
 	        else:
-	            print('最新价格已存在,无需写入.今日价格为%s%s' %(price,unit))
+	            print('最新价格已存在,无需重复写入.今日价格为%s%s' %(price,unit))
 	else:
 	    if not os.path.exists(File_dir):
 	        os.makedirs(File_dir)

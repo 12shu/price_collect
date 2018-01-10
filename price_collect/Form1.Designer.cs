@@ -151,7 +151,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(110, 57);
             this.button2.TabIndex = 2;
-            this.button2.Text = "保存采集信息";
+            this.button2.Text = "保存xpath";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.save_info);
             // 
@@ -212,8 +212,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ClientSize = new System.Drawing.Size(1323, 493);
-            this.Controls.Add(this.display_box);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.display_box);
             this.Controls.Add(this.label6);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";

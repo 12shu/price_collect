@@ -51,7 +51,7 @@ namespace price_collect
             string[] content = { textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text };
             write2csv writer = new write2csv();
             writer.start(info_csv,content,title);
-            string Message_str = String.Format("已保存至\"{0}\"", info_csv);
+            string Message_str = String.Format("刚才输入的xpath信息已保存至\"{0}\"", info_csv);
             log.LogMessage(display_box,Message_str);
 
         }
@@ -66,6 +66,7 @@ namespace price_collect
             price_xpath = textBox4.Text;
 
             one_crawl(goods_name, goods_unit, goods_url, price_xpath);
+            log.LogMessage(display_box,"价格数据已保存在'商品价格'文件夹里");
         }
 
         /// <summary>
@@ -199,7 +200,7 @@ namespace price_collect
                     one_crawl(data[0],data[1],data[2],data[3]);
                 }
             }
-            log.LogWarning(display_box, "已完成数据的批量获取!");
+            log.LogWarning(display_box, "已完成数据的批量获取!价格数据保存在'商品价格'文件夹里");
         }
 
 
