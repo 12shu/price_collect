@@ -8,3 +8,7 @@ E:\program_test\C#\price_collect\price_collect\obj\x64\Debug\price_collect.pdb
 E:\program_test\C#\price_collect\price_collect\obj\x64\Debug\price_collect.csprojResolveAssemblyReference.cache
 E:\program_test\C#\price_collect\price_collect\bin\x64\Debug\WebDriver.dll
 E:\program_test\C#\price_collect\price_collect\bin\x64\Debug\WebDriver.xml
+E:\program_test\C#\price_collect\price_collect\bin\x64\Debug\price_collect.exe.manifest
+E:\program_test\C#\price_collect\price_collect\bin\x64\Debug\price_collect.application
+E:\program_test\C#\price_collect\price_collect\obj\x64\Debug\price_collect.exe.manifest
+E:\program_test\C#\price_collect\price_collect\obj\x64\Debug\price_collect.application
