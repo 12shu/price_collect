@@ -142,25 +142,32 @@ namespace price_collect
             else
             { status_info = "网址链接打开失败,返回码:"+ status_code; }
 
-            // 不是正常获取数据时
+            string price_csv = "./商品价格/" + goods_name + ".csv";
+            // python没有获取到数据时
             if (status_code != "0")
             {
-                //获取已有最新价格
-                string[] lines = File.ReadAllLines("./商品价格/" + goods_name + ".csv");
-                string[] data0 = lines[lines.Length - 1].Split('\"');                             // 拆分
-                List<string> data_1 = new List<string>(data0);
-                string[] data = data_1.Where(p => (p != ",") & (p != " ") & (p != "")).ToArray(); // 去除数组中的逗号,空格,空值
-                //MessageBox.Show(data[1]);
-
                 log.LogNormal(display_box, status_info);
                 log.LogNormal(display_box, "开始使用C#的phantomjs爬虫");
                 phantomjs_crawl crawl = new phantomjs_crawl();
                 string price = crawl.xpath_crwal(goods_url, price_xpath); // 网址,xpath
                 string[] price_title = {"日期","价格","单位" };
+                ///判断是否有最新价格
+                bool is_exist_newest=false; // 初始化,"最新价格不存在"
+                if (File.Exists(price_csv)) // 存在该文件时
+                {
+                    //获取已有最新价格
+                    string[] lines = File.ReadAllLines(price_csv);
+                    string[] data0 = lines[lines.Length - 1].Split('\"');                             // 拆分
+                    List<string> data_1 = new List<string>(data0);
+                    string[] data = data_1.Where(p => (p != ",") & (p != " ") & (p != "")).ToArray(); // 去除数组中的逗号,空格,空值
+
+                    if (price == data[1]) { is_exist_newest = true; }
+                }
+
                 if (price != "")
                 {
-                    log.LogNormal(display_box, "成功获取渲染后的网页数据,价格为:" + price + goods_unit);
-                    if (price != data[1])  // 已存价格需更新
+                    log.LogNormal(display_box, "成功获取渲染后的网页数据,价格为:");
+                    if (is_exist_newest == false)
                     {
                         DateTime dt = DateTime.Now;
                         string date_str = String.Format("{0:d}", dt);
@@ -169,7 +176,7 @@ namespace price_collect
                         writer.start("./商品价格/" + goods_name + ".csv", content, price_title);
                         log.LogMessage(display_box,"今日价格为:"+price+",已保存到'商品价格'文件夹");
                     }
-                    else { log.LogMessage(display_box, "最新价格已存在,无需重复写入.今日价格为:"+data[1]+data[2]); }
+                    else { log.LogMessage(display_box, "最新价格已存在,无需重复写入.今日价格为:" + price + goods_unit); }
                 }
                 else
                 {
@@ -224,7 +231,7 @@ namespace price_collect
                     one_crawl(data[0],data[1],data[2],data[3]);
                 }
             }
-            log.LogWarning(display_box, "已完成数据的批量获取!价格数据保存在'商品价格'文件夹里");
+            log.LogWarning(display_box, "已完成数据的批量获取!\n价格数据保存在'商品价格'文件夹里");
         }
 
 
