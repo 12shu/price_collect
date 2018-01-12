@@ -289,6 +289,8 @@ namespace price_collect
                 str_content += String.Format(",\"{0}\"", content[i]);
                 str_title += String.Format(",\"{0}\"", title[i]);
             }
+            str_content += "\n";
+            str_title += "\n";
             if (File.Exists(file_name))
             {
                 File.AppendAllText(file_name, str_content, ASCIIEncoding.UTF8);  // 添加模式,utf-8
