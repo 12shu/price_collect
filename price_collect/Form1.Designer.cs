@@ -42,6 +42,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
             this.display_box = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -169,6 +170,7 @@
             // 
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
@@ -183,6 +185,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(743, 446);
             this.panel1.TabIndex = 3;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(606, 63);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(110, 57);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "test";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.test);
             // 
             // display_box
             // 
@@ -244,6 +256,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RichTextBox display_box;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button4;
     }
 }
 

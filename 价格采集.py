@@ -25,13 +25,8 @@ def main():
 	tree=etree.HTML(res.text)
 	nodes = tree.xpath(xpath0)
 	price = nodes[0].text
-	if price== None:
-		# return 1
+	if price== None:  # 没有获取到数据,就退出
 		sys.exit(1)
-	else:
-	    print("价格为:%s" %price)
-	    # return 0
-
 	import time
 	date = time.strftime('%Y-%m-%d')
 
@@ -48,7 +43,7 @@ def main():
 	            f = open(File,'a')
 	            print('%s,%s,%s' %(date,price,unit),file=f)
 	            f.close()
-	            print('已写入,今日价格为%s%s' %(price,unit))
+	            print("今日价格为:%s%s,已保存到'商品价格'文件夹" %(price,unit))
 	        else:
 	            print('最新价格已存在,无需重复写入.今日价格为%s%s' %(price,unit))
 	else:
@@ -58,7 +53,7 @@ def main():
 	    print('日期,价格,单位',file=f)
 	    print('%s,%s,%s' %(date,price,unit),file=f)
 	    f.close()
-	    print('已写入')
+	    print("今日价格为:%s%s,已保存到'商品价格'文件夹" %(price,unit))
 
 if __name__ == '__main__':
 	# feed_back = main()

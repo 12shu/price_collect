@@ -129,6 +129,7 @@ namespace price_collect
         /// <param name="price_xpath">价格的xpath</param>
         public void one_crawl(string goods_name, string goods_unit, string goods_url, string price_xpath)
         {
+            // 调用
             string[] args = {goods_name,goods_unit,goods_url,price_xpath };
             string status_code = StartProcess(exe_path, args);  // 调用外部的exe
             // 判断错误原因
@@ -144,24 +145,47 @@ namespace price_collect
             // 不是正常获取数据时
             if (status_code != "0")
             {
+                //获取已有最新价格
+                string[] lines = File.ReadAllLines("./商品价格/" + goods_name + ".csv");
+                string[] data0 = lines[lines.Length - 1].Split('\"');                             // 拆分
+                List<string> data_1 = new List<string>(data0);
+                string[] data = data_1.Where(p => (p != ",") & (p != " ") & (p != "")).ToArray(); // 去除数组中的逗号,空格,空值
+                //MessageBox.Show(data[1]);
+
                 log.LogNormal(display_box, status_info);
                 log.LogNormal(display_box, "开始使用C#的phantomjs爬虫");
                 phantomjs_crawl crawl = new phantomjs_crawl();
                 string price = crawl.xpath_crwal(goods_url, price_xpath); // 网址,xpath
+                string[] price_title = {"日期","价格","单位" };
                 if (price != "")
                 {
                     log.LogNormal(display_box, "成功获取渲染后的网页数据,价格为:" + price + goods_unit);
-                    DateTime dt = DateTime.Now;
-                    string date_str = String.Format("{0:d}", dt);
-                    string[] content = { date_str, price, goods_unit };   // 日期,价格,单位
-                    write2csv writer = new write2csv();
-                    writer.start("./商品价格/" + goods_name + ".csv", content, title);
+                    if (price != data[1])  // 已存价格需更新
+                    {
+                        DateTime dt = DateTime.Now;
+                        string date_str = String.Format("{0:d}", dt);
+                        string[] content = { date_str, price, goods_unit };   // 日期,价格,单位
+                        write2csv writer = new write2csv();
+                        writer.start("./商品价格/" + goods_name + ".csv", content, price_title);
+                        log.LogMessage(display_box,"今日价格为:"+price+",已保存到'商品价格'文件夹");
+                    }
+                    else { log.LogMessage(display_box, "最新价格已存在,无需重复写入.今日价格为:"+data[1]+data[2]); }
                 }
                 else
                 {
                     log.LogError(display_box, "获取失败");
                 }
             }
+        }
+
+        public void test(object sender, EventArgs e)
+        {
+            string[] lines = File.ReadAllLines("./商品价格/牙膏.csv");
+            string[] data0 = lines[lines.Length-1].Split('\"');
+            // 去除数组中的逗号,空格,空值
+            List<string> data_1 = new List<string>(data0);
+            string[] data = data_1.Where(p => (p != ",") & (p != " ") & (p != "")).ToArray();
+            MessageBox.Show(data[1]);
         }
 
 
