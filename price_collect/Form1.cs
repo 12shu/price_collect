@@ -282,8 +282,13 @@ namespace price_collect
     {
         public void start(string file_name,string[] content,string[] title)
         {
-            string str_content = String.Format("\"{0}\",\"{1}\",\"{2}\"\n", content);
-            string str_title = String.Format("\"{0}\",\"{1}\",\"{2}\"\n", title);
+            string str_content= content[0];
+            string str_title= title[0];
+            for (int i = 1; i < content.Length; i = i + 1)
+            {
+                str_content += String.Format(",\"{0}\"", content[i]);
+                str_title += String.Format(",\"{0}\"", title[i]);
+            }
             if (File.Exists(file_name))
             {
                 File.AppendAllText(file_name, str_content, ASCIIEncoding.UTF8);  // 添加模式,utf-8
