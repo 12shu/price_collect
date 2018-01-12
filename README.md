@@ -38,7 +38,7 @@ xpath是什么？它是用来定位数据的位置的,**不懂没关系! 能找�
 
 用visual studio打开工程文件	`price_collect.sln`   ,编译运行.
 
-也可以通过下面链接下载,百度云：https://pan.baidu.com/s/1bq9W8rl 密码：ee25
+也可以通过下面链接下载编译好的程序,链接：https://pan.baidu.com/s/1c3vH5ug 密码：ffk5
 
 ### 3.文件介绍
 
