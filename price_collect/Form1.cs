@@ -150,6 +150,11 @@ namespace price_collect
                 log.LogNormal(display_box, "开始使用C#的phantomjs爬虫");
                 phantomjs_crawl crawl = new phantomjs_crawl();
                 string price = crawl.xpath_crwal(goods_url, price_xpath); // 网址,xpath
+                if (price == "NULL")
+                {
+                    log.LogError(display_box, "C#的phantomjs爬虫也未成功得到"+ goods_name+"的数据");
+                    return; // phantomjs.exe也失败了,就退出当前函数
+                }
                 string[] price_title = {"日期","价格","单位" };
                 ///判断是否有最新价格
                 bool is_exist_newest=false; // 初始化,"最新价格不存在"
@@ -160,7 +165,6 @@ namespace price_collect
                     string[] data0 = lines[lines.Length - 1].Split('\"');                             // 拆分
                     List<string> data_1 = new List<string>(data0);
                     string[] data = data_1.Where(p => (p != ",") & (p != " ") & (p != "")).ToArray(); // 去除数组中的逗号,空格,空值
-
                     if (price == data[1]) { is_exist_newest = true; }
                 }
 
@@ -298,13 +302,24 @@ namespace price_collect
             /// <param name="xpath0">数据的xpath</param>
             /// <returns></returns>
             PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
+            var options = new PhantomJSOptions();
+            options.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0");
             service.HideCommandPromptWindow = true; // 隐藏dos窗口
-            var driver1 = new PhantomJSDriver(service);
+            var driver1 = new PhantomJSDriver(service,options);
             driver1.Navigate().GoToUrl(url);
+            
 
             ReadOnlyCollection<IWebElement> res = driver1.FindElementsByXPath(xpath0); // 搜索嘛,结果肯定是一个数组
-            string res_text = res[0].Text;
-            driver1.Quit();
+            string res_text;
+            if (res.Count != 0)
+            {
+                res_text = res[0].Text;
+                driver1.Quit();
+            }
+            else
+            {
+                res_text = "NULL";
+            }
             return res_text;
         }
     }

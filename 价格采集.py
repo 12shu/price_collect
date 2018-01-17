@@ -9,6 +9,10 @@ name = sys.argv[1]
 unit = sys.argv[2]
 goods_url = sys.argv[3]
 xpath0 = sys.argv[4]
+# name = "J神"
+# unit = "股票评论"
+# goods_url = "https://xueqiu.com/u/5832323914"
+# xpath0 = "(//div[@id='app']/div[contains(@class,'container')]/div[@class='profiles__main']/div[@class='profiles__timeline__bd']/article[@class='timeline__item']/div[@class='timeline__item__main']/div[@class='timeline__item__bd']/div[@class='timeline__item__content']/div[contains(@class,'content')]/div)[2]"
 import requests
 from bs4 import BeautifulSoup
 my_header = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'}
@@ -20,42 +24,46 @@ if res.status_code != 200:
     sys.exit(res.status_code)
 
 def main():
-	'''直接通过xpath来获取'''
-	from lxml import etree
-	tree=etree.HTML(res.text)
-	nodes = tree.xpath(xpath0)
-	price = nodes[0].text
-	if price== None:  # 没有获取到数据,就退出
-		sys.exit(1)
-	import time
-	date = time.strftime('%Y-%m-%d')
+    '''直接通过xpath来获取'''
+    from lxml import etree
+    tree=etree.HTML(res.text)
+    nodes = tree.xpath(xpath0)
+    if len(nodes)!= 0:
+        price = nodes[0].text
+    else:
+        price = None
+    if price== None:  # 没有获取到数据,就退出
+        print("没有获取到数据,现退出")
+        sys.exit(1)
+    import time
+    date = time.strftime('%Y-%m-%d')
 
-	File = './商品价格/%s.csv' %name
-	File_dir = './商品价格/'
-	'''判断文件是否存在,不存在就新建;存在,就检查是否有最新日期'''
-	import os
-	if os.path.exists(File):
-	        f = open(File,'r')
-	        temp = f.readlines()[-1]
-	        newest_price = temp.split(',')[1]
-	        f.close()
-	        if newest_price != price: # 无最新价格,需添加
-	            f = open(File,'a')
-	            print('%s,%s,%s' %(date,price,unit),file=f)
-	            f.close()
-	            print("今日价格为:%s%s,已保存到'商品价格'文件夹" %(price,unit))
-	        else:
-	            print('最新价格已存在,无需重复写入.今日价格为%s%s' %(price,unit))
-	else:
-	    if not os.path.exists(File_dir):
-	        os.makedirs(File_dir)
-	    f = open(File,'w') # 当文件夹不存在时,它就无法执行
-	    print('日期,价格,单位',file=f)
-	    print('%s,%s,%s' %(date,price,unit),file=f)
-	    f.close()
-	    print("今日价格为:%s%s,已保存到'商品价格'文件夹" %(price,unit))
+    File = './商品价格/%s.csv' %name
+    File_dir = './商品价格/'
+    '''判断文件是否存在,不存在就新建;存在,就检查是否有最新日期'''
+    import os
+    if os.path.exists(File):
+            f = open(File,'r')
+            temp = f.readlines()[-1]
+            newest_price = temp.split(',')[1]
+            f.close()
+            if newest_price != price: # 无最新价格,需添加
+                f = open(File,'a')
+                print('%s,%s,%s' %(date,price,unit),file=f)
+                f.close()
+                print("今日价格为:%s%s,已保存到'商品价格'文件夹" %(price,unit))
+            else:
+                print('最新价格已存在,无需重复写入.今日价格为%s%s' %(price,unit))
+    else:
+        if not os.path.exists(File_dir):
+            os.makedirs(File_dir)
+        f = open(File,'w') # 当文件夹不存在时,它就无法执行
+        print('日期,价格,单位',file=f)
+        print('%s,%s,%s' %(date,price,unit),file=f)
+        f.close()
+        print("今日价格为:%s%s,已保存到'商品价格'文件夹" %(price,unit))
 
 if __name__ == '__main__':
-	# feed_back = main()
-	main()
-	sys.exit(0)
+    # feed_back = main()
+    main()
+    sys.exit(0)
